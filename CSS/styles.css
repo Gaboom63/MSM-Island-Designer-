@@ -1,0 +1,18 @@
+* {
+    margin: 0; 
+}
+
+#shopMenu {
+    position: fixed;
+    top: 50vh;
+    right: 50vw;
+    transform: translate(50%, -50%);
+    scale: 1;
+}
+
+#menuIslandImg {
+    position: fixed; 
+    left: 49%;
+    top: 50%;
+    /* scale: 0.9; */
+}
