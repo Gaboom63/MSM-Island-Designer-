@@ -1,6 +1,41 @@
 * {
-    margin: 0; 
+    margin: 0;
 }
+
+#body {
+    position: relative;
+    /* Ensures content is above the background */
+    height: 100vh;
+    /* Full viewport height */
+    width: 100vw;
+    /* Full viewport width */
+    overflow: hidden;
+    /* Prevents any overflow that could create scrollbars */
+}
+
+#body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("Backgrounds/Spooktacle-Sky.jpg");
+    background-size: cover;
+    /* Ensures the image covers the entire element */
+    background-position: center;
+    /* Centers the image */
+    filter: blur(8px);
+    /* Adjust the pixel value for desired blur intensity */
+    -webkit-filter: blur(8px);
+    /* For older WebKit browsers */
+    z-index: -1;
+    /* Puts the background behind the content */
+    margin: 0;
+    /* Ensures there's no margin */
+    transform: scale(1.1)
+}
+
 
 #shopMenu {
     position: fixed;
@@ -8,79 +43,109 @@
     right: 50vw;
     transform: translate(50%, -50%);
     scale: 1;
+    z-index: 1;
 }
 
 #fullShopImg {
     width: 1000px;
     height: 600px;
+    border-radius: 5%;
 }
 
 #monstersMenuImg {
-    position: fixed; 
+    position: fixed;
     right: 53%;
     bottom: 25%;
     scale: 0.4;
 }
 
 #menuCostumeImg {
-    position: fixed; 
+    position: fixed;
     right: 34%;
     bottom: 25%;
     scale: 0.47;
 }
 
 #structureImg {
-    position: fixed; 
+    position: fixed;
     right: 15%;
     bottom: 25%;
     scale: 0.47;
 }
 
 #menuDecorationsImg {
-    position: fixed; 
+    position: fixed;
     left: 54%;
     bottom: 25%;
     scale: 0.47;
 }
 
 #menuCurrencyImg {
-    position: fixed; 
+    position: fixed;
     right: 53%;
     top: 25%;
     scale: 0.47;
 }
 
 #menuStarImg {
-    position: fixed; 
+    position: fixed;
     right: 40%;
     top: 34.5%;
     scale: 0.5;
 }
 
 #menuIslandImg {
-    position: fixed; 
+    position: fixed;
     right: 14.5%;
     top: 23.5%;
     scale: 0.46;
 }
 
 #menuAdImg {
-   position: fixed; 
+    position: fixed;
     right: 5%;
     top: 40%;
     scale: 0.6;
 }
 
 #menuWikiAdImg {
-     position: fixed; 
+    position: fixed;
     right: 4%;
     top: 42%;
     scale: 0.3;
 }
 
 #menuGithubAdImg {
-    position: fixed; 
+    position: fixed;
     right: 8%;
     top: 38%;
     scale: 0.25;
+}
+
+#menuDisplayFrame {
+    position: fixed;
+    right: 65%;
+    top: 20%;
+    /* scale: 0.25; */
+}
+
+#menuDisplayItem {
+    position: fixed;
+    right: 30%;
+    bottom: -40%;
+    scale: 0.25;
+    /* z-index: 2; */
+}
+
+#decorationImg {
+    position: fixed;
+    top: 35%;
+    left: 5.5%;
+    width: auto;
+    /* height: 1; */
+    /* background-color: blue; */
+}
+
+#decorationName {
+    color: white;
 }

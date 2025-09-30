@@ -1,0 +1,144 @@
+// This is no longer valid code!! I got everything working :) 
+
+// Reference to container where frames will be added
+const menuFrames = document.getElementById('menuFrames');
+
+// Example list of decoration items
+const decorationImageList = [
+  {
+    name: "Bongo Bango Bongos",
+    src: "images/Decorations/StarShop Decorations/Bingo Bango Bongos.png"
+  },
+  {
+    name: "Givutawai Tree",
+    src: "images/Decorations/StarShop Decorations/Givutawai Tree.png"
+  },
+  {
+    name: "Tree Hut",
+    src: "images/Decorations/Tree Hut.png"
+  },
+  {
+    name: "Tree Hut",
+    src: "images/Decorations/Tree Hut.png"
+  },
+
+];
+
+// Reference to buttons container
+const MENU_BUTTONS = document.getElementById('shopButtons');
+
+// Horizontal spacing between frames
+const frameSpacing = 300; // horizontal spacing between frames
+const baseRight = 65; // starting right position %
+const topPosition = 20; // top position %
+const frameWidth = 520;
+const frameHeight = 500;
+
+const MSMFont = new FontFace('MSMFont', 'url(fonts/OpenDyslexic-Bold.otf)');
+
+// Load the font before creating elements
+MSMFont.load().then((loadedFont) => {
+  document.fonts.add(loadedFont);
+
+  // Create scrollable container
+  const scrollContainer = document.createElement('div');
+  scrollContainer.style.position = 'fixed';
+  scrollContainer.style.top = `${topPosition}%`;
+  scrollContainer.style.left = '50%';
+  scrollContainer.style.transform = 'translateX(-50%)';
+  scrollContainer.style.width = `${frameWidth * 3}px`; // show 3 at a time
+  scrollContainer.style.height = `${frameHeight}px`;
+  scrollContainer.style.overflow = 'hidden';
+  scrollContainer.style.display = 'flex';
+  scrollContainer.style.flexDirection = 'row';
+  scrollContainer.style.alignItems = 'center';
+  scrollContainer.style.gap = '20px'; // spacing between frames
+  menuFrames.appendChild(scrollContainer);
+
+  // Inner container that actually scrolls
+  const innerContainer = document.createElement('div');
+  innerContainer.style.display = 'flex';
+  innerContainer.style.transition = 'transform 0.3s ease';
+  scrollContainer.appendChild(innerContainer);
+
+  // Track scroll index
+  let scrollIndex = 0;
+
+  // Now create frames, canvases, and names
+  decorationImageList.forEach((item, index) => {
+    // 1. Create new frame
+    const frame = document.createElement('img');
+    frame.src = 'images/Store/Menu_Display.png';
+    frame.style.position = 'fixed';
+    frame.style.top = `${topPosition}%`;
+    frame.style.right = `${baseRight - index * (frameSpacing / 10)}%`;
+    menuFrames.appendChild(frame);
+
+    // 2. Create new canvas (same size as frame)
+    const canvas = document.createElement('canvas');
+    canvas.width = 520;
+    canvas.height = 500;
+    canvas.style.position = 'fixed';
+    canvas.style.top = `${topPosition}%`;
+    canvas.style.right = `${baseRight - index * (frameSpacing / 10)}%`;
+    menuFrames.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    // 3. Load the decoration image
+    const img = new Image();
+    img.src = item.src;
+    img.onload = () => {
+      // Maximum size for the image inside the canvas
+      const maxWidth = canvas.width * 0.4; // 80% of canvas width
+      const maxHeight = canvas.height * 0.4; // 80% of canvas height
+
+      // Compute scale factor to maintain aspect ratio
+      const widthRatio = maxWidth / img.width;
+      const heightRatio = maxHeight / img.height;
+      const scale = Math.min(widthRatio, heightRatio);
+
+      const newWidth = img.width * scale;
+      const newHeight = img.height * scale;
+
+      // Center the image in the canvas
+      drawCenteredImage(ctx, img, 350, 230, newWidth, newHeight);
+    };
+
+
+    // 4. Create the name element
+    const nameEl = document.createElement('h1');
+    nameEl.textContent = item.name;
+    nameEl.style.position = 'fixed';
+    nameEl.style.top = `${topPosition + 5}%`; // slightly above the frame
+    nameEl.style.right = `${baseRight + 5 - index * (frameSpacing / 10)}%`;
+    nameEl.style.color = 'white';
+    nameEl.style.fontSize = '20px';
+    nameEl.style.fontFamily = 'MSMFont'; // now the font is loaded
+    nameEl.style.textAlign = 'center';
+    nameEl.style.width = '220px'; // same as canvas for centering
+    menuFrames.appendChild(nameEl);
+  });
+}).catch((err) => {
+  console.error('Failed to load font:', err);
+});
+
+// Draw image centered on canvas
+function drawCenteredImage(ctx, img, x, y, newWidth, newHeight) {
+  ctx.drawImage(
+    img,
+    0,
+    0,
+    img.width,
+    img.height,
+    x - newWidth / 2,
+    y - newHeight / 2,
+    newWidth,
+    newHeight
+  );
+}
+
+// Function to hide buttons when opening decorations menu
+function openDecorationsMenu() {
+  MENU_BUTTONS.style.display = 'none';
+}
